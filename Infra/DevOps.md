@@ -473,7 +473,7 @@ production-webservers
    end
    ```
 
-3. ansible-playbook으로 spec 파일(테스트 케이스 파일)을 배포
+3. ansible-playbook으로 spec 파일(테스트 케이스 정의 파일)을 배포
 
    ```
    [vagrant@demo ansible-playbook-sample]$ ansible-playbook -i development site.yml
@@ -496,6 +496,169 @@ production-webservers
    PLAY RECAP **********************************************************************
    localhost                  : ok=9    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
    ```
+
+4. spec 파일(테스트케이스 정의) 생성 확인
+
+   ```
+   [vagrant@demo ansible-playbook-sample]$ cat /tmp/serverspec_sample/spec/localhost/web_spec.rb
+   require 'spec_helper'
+   
+   describe package('nginx') do
+     it { should be_installed }
+   end
+   
+   describe service('nginx') do
+     it { should be_enabled }
+     it { should be_running }
+   end
+   
+   describe port(80) do
+     it { should be_listening }
+   end
+   
+   describe file('/usr/share/nginx/html/index.html') do
+     it { should be_file }
+     it { should exist }
+     its(:content) { should match /^Hello, development ansible!!$/ }
+   end
+   ```
+
+5. (ansible을 이용해서 자동으로 생성한) spec 파일로 테스트 실행
+
+   - 앞에서 수정했던 `index.html.j2` 파일을 동일하게 수정
+
+   ```
+   [vagrant@demo ansible-playbook-sample]$ cat ~/ansible-playbook-sample/roles/nginx/templates/index.html.j2
+   HELLO, {{ env }} ansible !!!				
+   
+   [vagrant@demo ansible-playbook-sample]$ vi ~/ansible-playbook-sample/roles/nginx/templates/index.html.j2
+   Hello, {{ env }} ansible!!
+   ```
+
+   - 수정한 템플릿에 맞춰 새로 index.html 생성
+
+   ```
+   [vagrant@demo ansible-playbook-sample]$ ansible-playbook -i development site.yml
+   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+   
+   PLAY [webservers] *********************************************************************************
+   
+   TASK [Gathering Facts] ****************************************************************************
+   ok: [localhost]
+   
+   	:
+   
+   TASK [nginx : replace index.html] *****************************************************************
+   changed: [localhost]
+   
+   	:
+   
+   PLAY RECAP ****************************************************************************************
+   localhost                  : ok=9    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+   ```
+
+   - 테스트 실행 : `rake spec`
+
+   ```
+   [vagrant@demo ansible-playbook-sample]$ cd /tmp/serverspec_sample/
+   
+   [vagrant@demo serverspec_sample]$ rake spec
+   /usr/local/rvm/rubies/ruby-2.7.0/bin/ruby -I/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-support-3.9.3/lib:/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/lib /usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/exe/rspec --pattern spec/localhost/\*_spec.rb
+   
+   Package "nginx"
+     is expected to be installed
+   
+   Service "nginx"
+     is expected to be enabled
+     is expected to be running
+   
+   Port "80"
+     is expected to be listening
+   
+   File "/usr/share/nginx/html/index.html"
+     is expected to be file
+     is expected to exist
+     content
+       is expected to match /^Hello, development ansible!!$/
+   
+   Finished in 0.10557 seconds (files took 0.41014 seconds to load)
+   7 examples, 0 failures		
+   ```
+
+6. nginx를 중지하고 테스트를 실행해보기 - 테스트 fail 예상
+
+   ```
+   [vagrant@demo serverspec_sample]$ sudo systemctl stop nginx.service
+   
+   [vagrant@demo serverspec_sample]$ systemctl status nginx.service
+   ● nginx.service - The nginx HTTP and reverse proxy server
+      Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)
+      Active: inactive (dead) since Thu 2020-09-10 08:12:46 UTC; 21s ago
+    Main PID: 25832 (code=exited, status=0/SUCCESS)
+   
+   [vagrant@demo serverspec_sample]$ rake spec
+   /usr/local/rvm/rubies/ruby-2.7.0/bin/ruby -I/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-support-3.9.3/lib:/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/lib /usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/exe/rspec --pattern spec/localhost/\*_spec.rb
+   
+   Package "nginx"
+     is expected to be installed
+   
+   Service "nginx"
+     is expected to be enabled
+     is expected to be running (FAILED - 1)
+   
+   Port "80"
+     is expected to be listening (FAILED - 2)
+   
+   File "/usr/share/nginx/html/index.html"
+     is expected to be file
+     is expected to exist
+     content
+       is expected to match /^Hello, development ansible!!$/
+   
+   Failures:
+   
+     1) Service "nginx" is expected to be running
+        On host `localhost'
+        Failure/Error: it { should be_running }
+          expected Service "nginx" to be running
+          /bin/sh -c systemctl\ is-active\ nginx
+          inactive
+   
+        # ./spec/localhost/web_spec.rb:9:in `block (2 levels) in <top (required)>'
+   
+     2) Port "80" is expected to be listening
+        On host `localhost'
+        Failure/Error: it { should be_listening }
+          expected Port "80" to be listening
+          /bin/sh -c ss\ -tunl\ \|\ grep\ -E\ --\ :80\\\
+   
+        # ./spec/localhost/web_spec.rb:13:in `block (2 levels) in <top (required)>'
+   
+   Finished in 0.11722 seconds (files took 0.41031 seconds to load)
+   7 examples, 2 failures
+   
+   Failed examples:
+   
+   rspec ./spec/localhost/web_spec.rb:9 # Service "nginx" is expected to be running
+   rspec ./spec/localhost/web_spec.rb:13 # Port "80" is expected to be listening
+   
+   /usr/local/rvm/rubies/ruby-2.7.0/bin/ruby -I/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-support-3.9.3/lib:/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/lib /usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/exe/rspec --pattern spec/localhost/\*_spec.rb failed
+   ```
+
+7. 테스트 결과를 HTML 로 출력
+
+   ```
+   [vagrant@demo serverspec_sample]$ sudo gem install coderay
+   
+   [vagrant@demo serverspec_sample]$ rake spec SPEC_OPTS="--format html" > ~/result.html
+   /usr/local/rvm/rubies/ruby-2.7.0/bin/ruby -I/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-support-3.9.3/lib:/usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/lib /usr/local/rvm/rubies/ruby-2.7.0/lib/ruby/gems/2.7.0/gems/rspec-core-3.9.2/exe/rspec --pattern spec/localhost/\*_spec.rb failed
+   
+   [vagrant@demo serverspec_sample]$ sudo mv ~/result.html /usr/share/nginx/html/
+   [vagrant@demo serverspec_sample]$ sudo setenforce 0
+   [vagrant@demo serverspec_sample]$ sudo systemctl start nginx.service
+   ```
+
+   - host PC에서 http://192.168.33.10/result.html 로 접속
 
    
 
