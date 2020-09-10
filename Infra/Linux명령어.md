@@ -25,3 +25,23 @@
 
 
 
+# 가상머신 중지/종료
+
+- Ubuntu Linux
+
+  ```
+  # 전원 종료
+  shutdown
+  poweroff
+  
+  # 재부팅
+  reboot
+  ```
+
+- vagrant
+
+  ```
+  C:\HashiCorp\WorkDir> vagrant halt
+  ```
+
+  

@@ -86,7 +86,7 @@ $ pip list
 >
 > ex) 1.2.2(테마변경) -> 괄호 안이 commit message
 
-<img src="C:\Users\i\AppData\Roaming\Typora\typora-user-images\image-20200820181325027.png" alt="image-20200820181325027" style="zoom:100%;" />
+![image-20200820182939276](../img/image-20200820182939276.png)
 
 ```
 $ git config --global user.name
@@ -99,7 +99,9 @@ $ git config --global user.email
 $ git config --local user.name 새이름
 ```
 
-![image-20200820181536535](C:\Users\i\TIL\image-20200820181536535.png)
+
+
+![image-20200820181536535](../img/image-20200820181536535.png)
 
 #### Git 지우고 싶을 때
 
@@ -107,7 +109,9 @@ $ git config --local user.name 새이름
 >
 > .git 있는 dir부터 하위 모든 폴더와 파일의 **git 버전관리** 가능
 
-![image-20200820181722556](C:\Users\i\TIL\image-20200820181722556.png)
+
+
+![image-20200820181722556](../img/image-20200820181722556.png)
 
 > [Markdown editor][https://www.typora.io]
 
@@ -124,25 +128,25 @@ $ git restore --staged
 이전 add로 돌아가기
 ```
 
-![image-20200820182037496](C:\Users\i\TIL\image-20200820182037496.png)
+![image-20200820182037496](../img/image-20200820182037496.png)
 
 > 초록색 글자의 파일들만 commit된다 (add 완료된 파일들)
 >
 > 아래에서 log를 보면 2개의 commit이 보인다.
 
-![image-20200820182148757](C:\Users\i\TIL\image-20200820182148757.png)
+![image-20200820182148757](../img/image-20200820182148757.png)
 
 > untitle.md 파일을 생성하고 add 한 후에 다시 status를 보면 삭제한 사실을 저장한다.
 
-![image-20200820182322607](C:\Users\i\TIL\image-20200820182322607.png)
+![image-20200820182322607](../img/image-20200820182322607.png)
 
-![image-20200820182347139](C:\Users\i\TIL\image-20200820182347139.png)
+![image-20200820182347139](../img/image-20200820182347139.png)
 
 > Pycharm에서 vcs - intel..에서 -git 하면 GUI로 git 버전관리가 가능하다
 >
 > 파일별로 변경된 코드를 비교하며 확인가능하다.
 
-![image-20200820182547548](C:\Users\i\TIL\image-20200820182547548.png)
+![image-20200820182547548](../img/image-20200820182547548.png)
 
 > Add 한 후에 add했던 파일을 수정하면 중복돼서 초록, 빨강으로 모두 나온다.
 
@@ -160,7 +164,9 @@ $ touch .gitignore
 
 간편하게 모두 찾아볼 수 있는 사이트: [git-scm][https://git-scm.com/book/ko/v2]
 
-![image-20200820182939276](C:\Users\i\TIL\image-20200820182939276.png)
+![image-20200820182939276](../img/image-20200820182939276.png)
+
+
 
 > Git: snapshot 찍어놓는것
 >
@@ -228,7 +234,7 @@ $ pip freeze > requirements.txt
 
 ## Git으로 DJango 프로젝트 버전 관리 하는 방법
 
-<img src="C:\Users\i\Desktop\image-20200820172253570.png" alt="image-20200820172253570"  />
+![20200820172253570](../img/image-20200820172253570.png)
 
 ```python
 i@DESKTOP-CS5B0E0 MINGW64 ~/DJANGO_GIT
