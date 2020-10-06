@@ -11,9 +11,13 @@
 - 우선순위 큐를 구현할 때 사용한다.
 - 우선순위 큐란?
 
+
+
+
+
 ## 최대힙(max heap)과 최소힙(min heap)
 
-
+![](https://github.com/progjs/TIL/blob/master/img/힙종류.PNG)
 
 - 최대힙
 
@@ -23,11 +27,17 @@
 
   부모노드의 key ≤ 자식노드의 key
 
+
+
+
+
 ## 힙의 구현
+
+
 
 ### 힙을 배열로 구현할 때 부모노드와 자식노드의 관계
 
-
+![](https://github.com/progjs/TIL/blob/master/img/힙2.PNG)
 
 - 왼쪽 자식의 인덱스 = 부모인덱스 *2
 - 오른쪽 자식의 인덱스 = 부모인덱스*2 +1
@@ -36,9 +46,13 @@
 - 새로운 노드가 추가되어도 루트노드의 오른쪽 자식노드의 번호는 언제나 3번이다.
 - C언어로 힙 구현
 
+
+
 ### 힙의 삽입연산
 
+![](https://github.com/progjs/TIL/blob/master/img/힙트리1.PNG)
 
+![](https://github.com/progjs/TIL/blob/master/img/힙트리2.PNG)
 
 1. 새로운 값이 삽입되면 우선 힙의 마지막 노드에 삽입한다.
 2. 새로운 노드를 부모노드와 대소관계를 비교하면서 부모노드와 교환하며 이동한다.
@@ -62,13 +76,17 @@
   }
   ```
 
+
+
 ### 힙의 삭제연산
 
 힙에서 삭제연산을 할 때, 우선순위를 고려한 루트노드(최우선순위)가 삭제된다.
 
 아래 예시는 최대힙에서 삭제를 진행하는 과정이다.
 
+![](https://github.com/progjs/TIL/blob/master/img/힙트리3.PNG)
 
+![](https://github.com/progjs/TIL/blob/master/img/힙트리4.PNG)
 
 1. 최대힙에서 삭제할 때, 최대값인 루트노드가 삭제된다.
 2. 삭제된 루트노드는 힙의 마지막 노드로 대체하고 마지막 노드를 제거한다.
