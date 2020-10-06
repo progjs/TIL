@@ -86,7 +86,7 @@ $ pip list
 >
 > ex) 1.2.2(테마변경) -> 괄호 안이 commit message
 
-![image-20200820182939276](../img/image-20200820182939276.png)
+![](../img/image-20200820182939276.png)
 
 ```
 $ git config --global user.name

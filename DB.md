@@ -51,7 +51,7 @@ tuple의 유일성을 보장하기 위한 하나 이상의 속성(Attribute)들�
 
   
 
-  ![](D:\mypython\TIL\img\key.jpg)
+  ![](./img/key.jpg)
 
 #### Super Key (슈퍼키)
 
@@ -75,13 +75,13 @@ Relation 내에 있는 속성들의 집합으로 구성된 **최소성을 만족
 
   [이메일]은 미래에도 고유하기 때문에 후보키가 될 수 있다.
 
-![](D:\mypython\TIL\img\key1.png)
+![](./img/key1.png)
 
 - - Super key: [학번] [이름, 학번] [이름, 주소]  [학과, 학번]  [이름, 주소, 학과] ...
   - [이름, 학번] 에서 이름 속성이 없어도 tuple들을 식별할 수 있다. ⇒ 후보키X
   - [이름, 주소] 는 주소가 없으면 유일성을 만족하지 않는다. ⇒ 후보키
 
-- ![](D:\mypython\TIL\img\key2.png)
+- ![](./img/key2.png)
 
   - [학번, 과목번호] 만 후보키다.
 
@@ -129,11 +129,11 @@ Relation 내에 있는 속성들의 집합으로 구성된 **최소성을 만족
 - 한 relation의 키가 다른 relation의 튜플들을 유일하게 식별할 수 있는 키
 - 참조되는 relation의 기본키와 같은 도메인을 가져야 한다.
 
-![](D:\mypython\TIL\img\key3.png)
+![](./img/key3.png)
 
 - 자체 relation을 참조하는 외래키 예시
 
-  ![](D:\mypython\TIL\img\key4.png)
+  ![](./img/key4.png)
 
 
 
@@ -239,7 +239,7 @@ R2가 R1의 기본키를 참조할 때
 1. 외래키의 값은 R1의 어떤 튜플의 기본키 값과 같다.
 2. 외래키가 자신을 포함하고 있는 relation의 기본키를 구성하지 않으면 NULL값을 가진다.
 
-![](D:\mypython\TIL\img\key11.png)
+![](./img/key11.png)
 
 - 신입사원을 채용하고 아직 부서에 발령내지 않았지만 이 신입사원의 정보를 EMPLOYEE relation에 삽입하기 위해서는 신입사원의 부서번호(ENO)에 임시로 NULL값을 지정할 수 있다.
 
@@ -271,7 +271,7 @@ R2가 R1의 기본키를 참조할 때
 
   ⇒ 참조하는 relation에서 이 튜플을 참조하는 튜플들도 함께 삭제
 
-  ![](D:\mypython\TIL\img\key12.png)
+  ![](./img/key12.png)
 
   - default 값
 
@@ -291,7 +291,7 @@ R2가 R1의 기본키를 참조할 때
 
 ⇒ 영속성을 갖지 않는 데이터는 메모리에만 존재하기 때문에 프로그램을 종료하면 모두 삭제된다.
 
-![](D:\mypython\TIL\img\영속성.png)
+![](./img/영속성.png)
 
 
 
@@ -311,7 +311,7 @@ R2가 R1의 기본키를 참조할 때
 
 # ORM 이란?
 
-![](D:\mypython\TIL\img\ORM.png)
+![](./img/ORM.png)
 
 - Object-relational mapping
 
