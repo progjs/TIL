@@ -1,6 +1,6 @@
 # 힙이란?
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ca94ee22-1183-4697-8da9-653887afa37f/heap.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ca94ee22-1183-4697-8da9-653887afa37f/heap.png)
+![](https://github.com/progjs/TIL/blob/master/img/heap.PNG)
 
 최대힙 예시
 
@@ -13,7 +13,7 @@
 
 ## 최대힙(max heap)과 최소힙(min heap)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b88d599-a225-4cfd-be89-e32294e3c5c1/.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b88d599-a225-4cfd-be89-e32294e3c5c1/.png)
+
 
 - 최대힙
 
@@ -27,7 +27,7 @@
 
 ### 힙을 배열로 구현할 때 부모노드와 자식노드의 관계
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b93b43d5-4e5e-48da-937a-9e1db0487e7b/2.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b93b43d5-4e5e-48da-937a-9e1db0487e7b/2.png)
+
 
 - 왼쪽 자식의 인덱스 = 부모인덱스 *2
 - 오른쪽 자식의 인덱스 = 부모인덱스*2 +1
@@ -38,9 +38,7 @@
 
 ### 힙의 삽입연산
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/84ffcf62-b9b7-4aba-badd-757893d6659c/1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/84ffcf62-b9b7-4aba-badd-757893d6659c/1.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e42d4870-2ca8-415d-bc9f-f3beabe26f61/2.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e42d4870-2ca8-415d-bc9f-f3beabe26f61/2.png)
 
 1. 새로운 값이 삽입되면 우선 힙의 마지막 노드에 삽입한다.
 2. 새로운 노드를 부모노드와 대소관계를 비교하면서 부모노드와 교환하며 이동한다.
@@ -70,9 +68,7 @@
 
 아래 예시는 최대힙에서 삭제를 진행하는 과정이다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0151c633-2f7b-4505-a7c5-188185dab2b4/3.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0151c633-2f7b-4505-a7c5-188185dab2b4/3.png)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a6c07671-3d0b-414a-b3e4-1d2846441d4c/4.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a6c07671-3d0b-414a-b3e4-1d2846441d4c/4.png)
 
 1. 최대힙에서 삭제할 때, 최대값인 루트노드가 삭제된다.
 2. 삭제된 루트노드는 힙의 마지막 노드로 대체하고 마지막 노드를 제거한다.
