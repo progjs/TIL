@@ -216,3 +216,52 @@ LIFO 형식의 자료구조 (Last In First Out)
     return item;
   }
   ```
+
+
+
+#### Python 의 heapq 모듈
+
+- heapq 모듈은 기본적으로 최소힙을 기반으로 구현되어 있다.
+
+- list(배열)로 초기화하여 사용한다.
+
+- 최대힙을 구현하기 위해서는 (- key값) 을 삽입하고 최대값을 return할 때에는 (- return값)을 사용해야 한다.
+
+  
+
+- 최소힙
+
+```python
+import heapq
+
+hp = []
+
+# 삽입
+heapq.heappush(hp, 1)
+
+# 삭제
+heapq.heappop(hp)
+
+# 조회
+print(hp[0])
+# n번째 노드를 리턴하려면 heappop을 n-1번 반복해야 한다.
+
+# 기존 리스트를 힙으로 변환 - heapify 사용 (시간복잡도 O(n))
+tmp = [4,3,6,8]
+heapq.heapify(tmp)
+```
+
+- 최대힙 구현
+
+```python
+import heapq
+
+tmp = [4,7,9,3,8,0]
+hp = []
+
+for n in tmp:
+    heapq.heappush(heap, (-n, n)) # (우선순위, 값)
+
+# return하고 삭제
+print(heapq.heappop(hp)[1])
+```
